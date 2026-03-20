@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://user@localhost:5432/viadb?schema=public"
+}
+
+model Profile {
+  id               Int           @id @default(autoincrement())
+  currentWeight    Int
+  goalWeight       Int
+  weeklyChange     Float
+  calorieGoal      Int
+  caloriesConsumed Int
+  steps            Int
+  activeMinutes    Int
+  waterLiters      Float
+  waterGoal        Float
+  coachTip         String
+  habits           Habit[]
+  meals            Meal[]
+  macroTargets     MacroTarget[]
+}
+
+model Habit {
+  id        Int     @id @default(autoincrement())
+  name      String
+  note      String
+  done      Boolean @default(false)
+  profileId Int
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model Meal {
+  id          Int     @id @default(autoincrement())
+  name        String
+  time        String
+  description String
+  calories    Int
+  highlights  String
+  profileId   Int
+  profile     Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model MacroTarget {
+  id        Int     @id @default(autoincrement())
+  name      String
+  value     Int
+  target    Int
+  profileId Int
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}

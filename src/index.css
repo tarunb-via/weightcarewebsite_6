@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-slatewarm-50 text-slatewarm-900;
+}
+
+#root {
+  min-height: 100vh;
+}
